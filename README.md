@@ -10,6 +10,9 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./model.png "Model Visualization"
+[image2]: ./center.png "Center Position"
+[image3]: ./center2.png "Center Position"
+[image4]: ./flip.png "Flipped Image"
 
 
 ### Files Submitted & Code Quality
@@ -44,7 +47,7 @@ The model includes RELU layers to introduce nonlinearity (code line 20##), and t
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21##). 
+The model contains a dropout layer in order to reduce overfitting (model.py lines 21##). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16##). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
@@ -56,7 +59,6 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road, and opposite direction driving. 
 
-For details about how I created the training data, see the next section. 
 
 ---
 
@@ -64,52 +66,48 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+My first step was to use a convolution neural network model similar to the LeNet5. The results were OK for the first try but there was a lot of impovement to be done. I increased the data set, and the results became better and better up to a certain point. Then I started looking for other network architectures and I went with NVIDIA CNN model for autonomous cars. Then structure is similar but my model contains only 4 convolutional layers and the original one 5. Also I used different image shapes.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+To combat the overfitting, I modified the model and I added a dropout layer.Then I used different data sets to be sure the model was not overfitting.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes:
+- Normalization layer 3@65X320
+- Convolutional layer 24@30X158
+- Convolutional layer 36@13X77
+- Convolutional layer 48@4X36
+- Convolutional layer 64@1X17
+- Fully Connected layer 1088
+- Fully Connected layer 120
+- Dropout layer 15%
+- Fully Connected layer 50
+- Fully Connected layer 10
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture
 
 ![alt text][image1]
 
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, I first recorded a few laps on track one using center lane driving. Here is an example image of center lane driving:
 
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn how to drive in certain conditions.
 
 Then I repeated this process on track two in order to get more data points.
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+To augment the data sat, I also flipped images and angles thinking that this would help because the first track has only left corners. For example, here is an image that has then been flipped:
 
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+![alt text][image3]
+![alt text][image4]
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+After the collection process, I had 90.000 number of data points. I then preprocessed this data by cropping the top and the bottom of the image. Also while training all the data has been converted from BGR to RGB. I haven't realised this until, but cv2 is reading the image with BGR and the test with RGB
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
+
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 because mse is not decreasing that much with more epochs. I used an adam optimizer so that manually training the learning rate wasn't necessary.

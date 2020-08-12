@@ -111,3 +111,5 @@ After the collection process, I had 90.000 number of data points. I then preproc
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 because mse is not decreasing that much with more epochs. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+# The vehicle is able to drive autonomously around both tracks without leaving the road. See videos track1 and track2

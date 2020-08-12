@@ -5,6 +5,12 @@ The goals / steps of this project are the following:
 * Build, a convolution neural network in Keras that predicts steering angles from images
 * Train and validate the model with a training and validation set
 * Test that the model successfully drives around track one without leaving the road
+---
+
+[//]: # (Image References)
+
+[image1]: ./model.png "Model Visualization"
+
 
 ### Files Submitted & Code Quality
 
@@ -25,6 +31,8 @@ python drive.py model_all_4conv_RGB.h5
 #### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
+
+---
 
 ### Model Architecture and Training Strategy
 
@@ -49,6 +57,8 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road, and opposite direction driving. 
 
 For details about how I created the training data, see the next section. 
+
+---
 
 ### Model Architecture and Training Strategy
 
